@@ -3,7 +3,7 @@ import { router } from '../router/routes'
 export default {
   register({ dispatch }, user) {
     axios
-      .post(' http://167.172.183.86:3000/api/user/register', user)
+      .post(' http://167.172.103.225:3000/api/user/register', user)
       .then(() => {
         dispatch('login', { email: user.email, password: user.password }).then(
           () => {
@@ -15,7 +15,7 @@ export default {
 
   login({ commit }, user) {
     return axios
-      .post(' http://167.172.183.86:3000/user/login', user)
+      .post(' http://167.172.103.225:3000/api/user/login', user)
       .then((res) => {
         localStorage.setItem('auth_token', res.data.token)
         commit('setToken', res.data)
@@ -24,7 +24,7 @@ export default {
 
   fetchUserInfo({ commit, state }) {
     axios
-      .get('http://167.172.183.86:3000/api/user/info', {
+      .get('http://167.172.103.225:3000/api/user/info', {
         headers: {
           auth_token: state.token
         }
@@ -36,7 +36,7 @@ export default {
 
   addTask({ commit, state }, task) {
     return axios
-      .patch('http://167.172.183.86:3000/api/tasks/write', task, {
+      .patch('http://167.172.103.225:3000/api/tasks/write', task, {
         headers: {
           auth_token: state.token
         }
@@ -49,7 +49,7 @@ export default {
 
   fetchTasks({ commit, state }) {
     axios
-      .get('http://167.172.183.86:3000/api/tasks/get-tasks', {
+      .get('http://167.172.103.225:3000/api/tasks/get-tasks', {
         headers: {
           auth_token: state.token
         }
@@ -61,7 +61,7 @@ export default {
 
   deleteTask({ commit, state }, task) {
     axios
-      .post('http://167.172.183.86:3000/api/tasks/delete', task, {
+      .post('http://167.172.103.225:3000/api/tasks/delete', task, {
         headers: {
           auth_token: state.token
         }
