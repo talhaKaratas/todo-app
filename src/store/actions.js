@@ -3,7 +3,7 @@ import { router } from '../router/routes'
 export default {
   register({ dispatch }, user) {
     axios
-      .post(' http://talhakaratas.cf:81/api/user/register', user)
+      .post(' https://server.talhakaratas.cf/api/user/register', user)
       .then(() => {
         dispatch('login', { email: user.email, password: user.password }).then(
           () => {
@@ -15,7 +15,7 @@ export default {
 
   login({ commit }, user) {
     return axios
-      .post(' http://talhakaratas.cf:81/api/user/login', user)
+      .post(' https://server.talhakaratas.cf/api/user/login', user)
       .then((res) => {
         localStorage.setItem('auth_token', res.data.token)
         commit('setToken', res.data)
@@ -24,7 +24,7 @@ export default {
 
   fetchUserInfo({ commit, state }) {
     axios
-      .get('http://talhakaratas.cf:81/api/user/info', {
+      .get('https://server.talhakaratas.cf/api/user/info', {
         headers: {
           auth_token: state.token
         }
@@ -36,7 +36,7 @@ export default {
 
   addTask({ commit, state }, task) {
     return axios
-      .patch('http://talhakaratas.cf:81/api/tasks/write', task, {
+      .patch('https://server.talhakaratas.cf/api/tasks/write', task, {
         headers: {
           auth_token: state.token
         }
@@ -49,7 +49,7 @@ export default {
 
   fetchTasks({ commit, state }) {
     axios
-      .get('http://talhakaratas.cf:81/api/tasks/get-tasks', {
+      .get('https://server.talhakaratas.cf/api/tasks/get-tasks', {
         headers: {
           auth_token: state.token
         }
@@ -61,7 +61,7 @@ export default {
 
   deleteTask({ commit, state }, task) {
     axios
-      .post('http://talhakaratas.cf:81/api/tasks/delete', task, {
+      .post('https://server.talhakaratas.cf/api/tasks/delete', task, {
         headers: {
           auth_token: state.token
         }
