@@ -15,6 +15,7 @@ export default {
   border-radius: 10px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
   margin-top: -80px;
+  width: 40%;
 }
 
 .card__title {
@@ -33,12 +34,12 @@ export default {
 }
 
 .form__group label {
-  width: 70px;
+  width: 80px;
   font-size: 18px;
 }
 
 .form__group input {
-  width: 350px;
+  width: 100%;
   height: 35px;
   outline: none;
   border-radius: 10px;
@@ -92,5 +93,34 @@ export default {
 
 .card__footer p strong:hover {
   color: blue;
+}
+
+@media (max-width: 1000px) {
+  .card {
+    width: 60%;
+  }
+}
+
+@media (max-width: 700px) {
+  .card {
+    width: 70%;
+  }
+}
+
+@media (max-width: 550px) {
+  .card {
+    width: 85%;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .form__group {
+    display: block;
+  }
+  .form__group label {
+    display: block;
+    margin-bottom: 10px;
+  }
 }
 </style>

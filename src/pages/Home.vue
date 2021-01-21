@@ -72,8 +72,9 @@ export default {
 .home {
   width: 100vw;
   height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #fff9ea;
 }
 
@@ -154,5 +155,20 @@ export default {
 
 .mt-0 {
   margin: 0 !important;
+}
+
+@media (max-width: 850px) {
+  .task__container {
+    width: 90%;
+    height: 90%;
+  }
+}
+
+@media (max-width: 550px) {
+  .task__container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
 }
 </style>

@@ -21,12 +21,26 @@ export const router = new VueRouter({
     {
       path: '/register',
       name: 'Register',
-      component: () => import('../pages/Register')
+      component: () => import('../pages/Register'),
+      beforeEnter(to, from, next) {
+        if (store.state.token) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: () => import('../pages/Login')
+      component: () => import('../pages/Login'),
+      beforeEnter(to, from, next) {
+        if (store.state.token) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     }
   ],
   mode: 'history'
