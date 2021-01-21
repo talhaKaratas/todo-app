@@ -2,18 +2,20 @@ import axios from 'axios'
 import { router } from '../router/routes'
 export default {
   register({ dispatch }, user) {
-    axios.post(' http://localhost:3000/api/user/register', user).then(() => {
-      dispatch('login', { email: user.email, password: user.password }).then(
-        () => {
-          router.push('/')
-        }
-      )
-    })
+    axios
+      .post(' https://server.talhakaratas.cf/api/user/register', user)
+      .then(() => {
+        dispatch('login', { email: user.email, password: user.password }).then(
+          () => {
+            router.push('/')
+          }
+        )
+      })
   },
 
   login({ commit }, user) {
     return axios
-      .post(' http://localhost:3000/api/user/login', user)
+      .post(' https://server.talhakaratas.cf/api/user/login', user)
       .then((res) => {
         localStorage.setItem('auth_token', res.data.token)
         commit('setToken', res.data)
@@ -22,7 +24,7 @@ export default {
 
   fetchUserInfo({ commit, state }) {
     axios
-      .get('http://localhost:3000/api/user/info', {
+      .get('https://server.talhakaratas.cf/api/user/info', {
         headers: {
           auth_token: state.token
         }
@@ -34,7 +36,7 @@ export default {
 
   addTask({ commit, state }, task) {
     return axios
-      .patch('http://localhost:3000/api/tasks/write', task, {
+      .patch('https://server.talhakaratas.cf/api/tasks/write', task, {
         headers: {
           auth_token: state.token
         }
@@ -47,7 +49,7 @@ export default {
 
   fetchTasks({ commit, state }) {
     axios
-      .get('http://localhost:3000/api/tasks/get-tasks', {
+      .get('https://server.talhakaratas.cf/api/tasks/get-tasks', {
         headers: {
           auth_token: state.token
         }
@@ -60,7 +62,7 @@ export default {
   deleteTask({ commit, state }, task) {
     axios
       .post(
-        'http://localhost:3000/api/tasks/delete',
+        'https://server.talhakaratas.cf/api/tasks/delete',
         { taskId: task._id },
         {
           headers: {
@@ -76,7 +78,7 @@ export default {
   isCompleteTask({ commit, state }, task) {
     axios
       .patch(
-        'http://localhost:3000/api/tasks/completed',
+        'https://server.talhakaratas.cf/api/tasks/completed',
         { taskId: task._id, isComplete: task.completed },
         {
           headers: {
