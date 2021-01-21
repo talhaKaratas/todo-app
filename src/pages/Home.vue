@@ -16,6 +16,14 @@
           <p v-if="task.length > 0" @click="addTask">Ekle</p>
         </div>
         <Task v-for="task in getTasks" :key="task._id" :task="task" />
+        <div class="completedTasks" v-if="getCompletedTasks.length">
+          <h1>Tamamlananlar</h1>
+          <Task
+            v-for="task in getCompletedTasks"
+            :key="task._id"
+            :task="task"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +57,7 @@ export default {
     this.$store.dispatch('fetchTasks')
   },
   computed: {
-    ...mapGetters(['getActiveUsers', 'getTasks'])
+    ...mapGetters(['getActiveUsers', 'getTasks', 'getCompletedTasks'])
   },
 
   filters: {
@@ -75,6 +83,20 @@ export default {
   background: #fff;
   border-radius: 10px;
   box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.6);
+  overflow-y: scroll;
+}
+
+.task__container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.task__container::-webkit-scrollbar-track {
+  background: #f3f4f7;
+}
+
+.task__container::-webkit-scrollbar-thumb {
+  background: #caccd1;
+  border-radius: 0 4px 4px 0;
 }
 
 .taskContainer__title {

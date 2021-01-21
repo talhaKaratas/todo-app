@@ -5,5 +5,9 @@ export default {
 
   getTasks(state) {
     return state.tasks
+  },
+
+  getCompletedTasks(state) {
+    return state.completedTasks
   }
 }

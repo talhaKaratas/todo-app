@@ -1,7 +1,7 @@
 <template>
   <div class="task__read">
     <div class="taskRead__left">
-      <input type="checkbox" />
+      <input type="checkbox" @change="changeStatus" :checked="task.completed" />
       <p class="task__text">{{ task.task }}</p>
     </div>
     <small @click="deleteTask">sil</small>
@@ -14,7 +14,11 @@ export default {
   props: ['task'],
   methods: {
     deleteTask() {
-      this.$store.dispatch('deleteTask', { taskId: this.task._id })
+      this.$store.dispatch('deleteTask', this.task)
+    },
+    changeStatus() {
+      this.task.completed = !this.task.completed
+      this.$store.dispatch('isCompleteTask', this.task)
     }
   }
 }

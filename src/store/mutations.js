@@ -8,17 +8,42 @@ export default {
   },
 
   adTask(state, payload) {
-    state.tasks.unshift(payload)
+    if (payload.completed) {
+      const index = state.tasks.findIndex((task) => task._id == payload._id)
+      state.tasks.splice(index, 1)
+      state.completedTasks.unshift(payload)
+    } else {
+      const index = state.completedTasks.findIndex(
+        (task) => task._id == payload._id
+      )
+      state.completedTasks.splice(index, 1)
+      state.tasks.unshift(payload)
+    }
   },
 
   setTasks(state, payload) {
-    state.tasks = payload
+    payload.forEach((task) => {
+      if (task.completed) {
+        state.completedTasks.push(task)
+      } else {
+        state.tasks.push(task)
+      }
+    })
   },
 
-  pullFromTasks(state, id) {
-    const index = state.tasks.findIndex((task) => task._id == id)
-    if (index > -1) {
-      state.tasks.splice(index, 1)
+  pullFromTasks(state, payload) {
+    if (payload.completed) {
+      const index = state.completedTasks.findIndex(
+        (task) => task._id == payload._id
+      )
+      if (index > -1) {
+        state.completedTasks.splice(index, 1)
+      }
+    } else {
+      const index = state.tasks.findIndex((task) => task._id == payload._id)
+      if (index > -1) {
+        state.tasks.splice(index, 1)
+      }
     }
   }
 }
