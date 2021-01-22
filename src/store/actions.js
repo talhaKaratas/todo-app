@@ -32,7 +32,7 @@ export default {
       })
   },
 
-  addTask({ dispatch, state }, task) {
+  addTask({ commit, state }, task) {
     return axios
       .patch('http://localhost:3000/api/tasks/write', task, {
         headers: {
@@ -41,9 +41,7 @@ export default {
       })
       .then((res) => {
         console.log(res)
-        state.tasks.length = 0
-        state.completedTasks.length = 0
-        dispatch('fetchTasks')
+        commit('adTask', res.data)
       })
   },
 
