@@ -34,7 +34,7 @@ export default {
       })
   },
 
-  addTask({ commit, state }, task) {
+  addTask({ dispatch, state }, task) {
     return axios
       .patch('https://server.talhakaratas.cf/api/tasks/write', task, {
         headers: {
@@ -43,7 +43,9 @@ export default {
       })
       .then((res) => {
         console.log(res)
-        commit('adTask', task)
+        state.tasks.length = 0
+        state.completedTasks.length = 0
+        dispatch('fetchTasks')
       })
   },
 
