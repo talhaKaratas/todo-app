@@ -14,6 +14,9 @@
             <label for="loginPassword">Şifre</label>
             <input type="password" id="loginPassword" v-model="user.password" />
           </div>
+          <p class="error">
+            {{ getError }}
+          </p>
           <button type="submit" class="btn btn-success" @click.prevent="login">
             Giriş Yap
           </button>
@@ -30,6 +33,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -37,7 +41,8 @@ export default {
       user: {
         email: '',
         password: ''
-      }
+      },
+      test: 'asd'
     }
   },
   methods: {
@@ -46,6 +51,10 @@ export default {
         this.$router.push('/')
       })
     }
+  },
+
+  computed: {
+    ...mapGetters(['getError'])
   }
 }
 </script>

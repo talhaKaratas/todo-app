@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import state from '../store/state'
 import { store } from '../store/store'
 
 Vue.use(VueRouter)
@@ -12,6 +13,7 @@ export const router = new VueRouter({
       component: () => import('../pages/Home'),
       beforeEnter(to, from, next) {
         if (store.state.token) {
+          state.error = null
           next()
         } else {
           next('/login')
@@ -26,6 +28,7 @@ export const router = new VueRouter({
         if (store.state.token) {
           next('/')
         } else {
+          state.error = null
           next()
         }
       }
@@ -38,6 +41,7 @@ export const router = new VueRouter({
         if (store.state.token) {
           next('/')
         } else {
+          state.error = null
           next()
         }
       }

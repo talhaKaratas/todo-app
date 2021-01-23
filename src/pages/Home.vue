@@ -8,7 +8,23 @@
           }}</md-avatar>
           <p>{{ getActiveUsers.name }} {{ getActiveUsers.surname }}</p>
         </div>
-        <h3 class="exist__button" @click="exit">Çıkış Yap</h3>
+        <md-menu md-size="big" md-direction="bottom-end">
+          <md-button class="md-icon-button" md-menu-trigger>
+            <md-icon>exit_to_app</md-icon>
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item @click="exit">
+              <span>Çıkış Yap</span>
+              <md-icon>exit_to_app</md-icon>
+            </md-menu-item>
+
+            <md-menu-item @click="deleteUser">
+              <span>Hesabı Sil</span>
+              <md-icon>delete</md-icon>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
       </div>
       <div class="taskContainer__body">
         <div class="task">
@@ -50,6 +66,15 @@ export default {
       this.$store.dispatch('addTask', { task: this.task }).then(() => {
         this.task = ''
       })
+    },
+
+    deleteUser() {
+      if (confirm('Hesabı kalıcı olarak silmek istediğinize emin misiniz?')) {
+        this.$store.dispatch('deleteUser').then(() => {
+          // location.reload()
+          this.$router.push('/register')
+        })
+      }
     }
   },
   created() {
