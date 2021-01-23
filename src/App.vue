@@ -95,6 +95,12 @@ export default {
   color: blue;
 }
 
+.error {
+  text-align: center;
+  margin: 10px 0;
+  color: red;
+}
+
 @media (max-width: 1000px) {
   .card {
     width: 60%;

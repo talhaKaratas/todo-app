@@ -26,6 +26,9 @@
               v-model="user.password"
             />
           </div>
+          <p class="error">
+            {{ getError }}
+          </p>
           <button
             type="submit"
             class="btn btn-primary"
@@ -46,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Register',
   data() {
@@ -62,6 +66,9 @@ export default {
     register() {
       this.$store.dispatch('register', this.user)
     }
+  },
+  computed: {
+    ...mapGetters(['getError'])
   }
 }
 </script>

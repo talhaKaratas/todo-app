@@ -63,5 +63,9 @@ export default {
         state.tasks.splice(index, 1)
       }
     }
+  },
+
+  setError(state, payload) {
+    state.error = payload
   }
 }

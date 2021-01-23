@@ -1,28 +1,39 @@
 import axios from 'axios'
+import config from './config'
 import { router } from '../router/routes'
 export default {
-  register({ dispatch }, user) {
-    axios.post(' http://localhost:3000/api/user/register', user).then(() => {
-      dispatch('login', { email: user.email, password: user.password }).then(
-        () => {
-          router.push('/')
-        }
-      )
-    })
+  register({ dispatch, commit }, user) {
+    axios
+      .post(`${config.baseUrl}/api/user/register`, user)
+      .then(() => {
+        dispatch('login', { email: user.email, password: user.password }).then(
+          () => {
+            router.push('/')
+          }
+        )
+      })
+      .catch((error) => {
+        const err = error.response.data.message
+        commit('setError', err)
+      })
   },
 
   login({ commit }, user) {
     return axios
-      .post(' http://localhost:3000/api/user/login', user)
+      .post(`${config.baseUrl}/api/user/login`, user)
       .then((res) => {
         localStorage.setItem('auth_token', res.data.token)
         commit('setToken', res.data)
+      })
+      .catch((error) => {
+        const err = error.response.data.message
+        commit('setError', err)
       })
   },
 
   fetchUserInfo({ commit, state }) {
     axios
-      .get('http://localhost:3000/api/user/info', {
+      .get(`${config.baseUrl}/api/user/info`, {
         headers: {
           auth_token: state.token
         }
@@ -34,20 +45,19 @@ export default {
 
   addTask({ commit, state }, task) {
     return axios
-      .patch('http://localhost:3000/api/tasks/write', task, {
+      .patch(`${config.baseUrl}/api/tasks/write`, task, {
         headers: {
           auth_token: state.token
         }
       })
       .then((res) => {
-        console.log(res)
         commit('adTask', res.data)
       })
   },
 
   fetchTasks({ commit, state }) {
     axios
-      .get('http://localhost:3000/api/tasks/get-tasks', {
+      .get(`${config.baseUrl}/api/tasks/get-tasks`, {
         headers: {
           auth_token: state.token
         }
@@ -60,7 +70,7 @@ export default {
   deleteTask({ commit, state }, task) {
     axios
       .post(
-        'http://localhost:3000/api/tasks/delete',
+        `${config.baseUrl}/api/tasks/delete`,
         { taskId: task._id },
         {
           headers: {
@@ -76,7 +86,7 @@ export default {
   isCompleteTask({ commit, state }, task) {
     axios
       .patch(
-        'http://localhost:3000/api/tasks/completed',
+        `${config.baseUrl}/api/tasks/completed`,
         { taskId: task._id, isComplete: task.completed },
         {
           headers: {
@@ -86,6 +96,19 @@ export default {
       )
       .then(() => {
         commit('adTask', task)
+      })
+  },
+
+  deleteUser({ state }) {
+    return axios
+      .delete(`${config.baseUrl}/api/user/delete`, {
+        headers: {
+          auth_token: state.token
+        }
+      })
+      .then(() => {
+        localStorage.removeItem('auth_token')
+        state.token = null
       })
   }
 }

@@ -9,5 +9,9 @@ export default {
 
   getCompletedTasks(state) {
     return state.completedTasks
+  },
+
+  getError(state) {
+    return state.error
   }
 }
