@@ -1,10 +1,9 @@
-import axios from 'axios'
-import config from './config'
+import axios from './axios'
 import { router } from '../router/routes'
 export default {
   register({ dispatch, commit }, user) {
     return axios
-      .post(`${config.baseUrl}/api/user/register`, user)
+      .post('/api/user/register', user)
       .then(() => {
         dispatch('login', { email: user.email, password: user.password })
       })
@@ -16,7 +15,7 @@ export default {
 
   login({ commit }, user) {
     return axios
-      .post(`${config.baseUrl}/api/user/login`, user)
+      .post('/api/user/login', user)
       .then((res) => {
         localStorage.setItem('auth_token', res.data.token)
         commit('setToken', res.data)
@@ -30,7 +29,7 @@ export default {
 
   fetchUserInfo({ commit, state }) {
     axios
-      .get(`${config.baseUrl}/api/user/info`, {
+      .get('/api/user/info', {
         headers: {
           auth_token: state.token
         }
@@ -42,7 +41,7 @@ export default {
 
   addTask({ commit, state }, task) {
     return axios
-      .patch(`${config.baseUrl}/api/tasks/write`, task, {
+      .patch('/api/tasks/write', task, {
         headers: {
           auth_token: state.token
         }
@@ -54,7 +53,7 @@ export default {
 
   fetchTasks({ commit, state }) {
     return axios
-      .get(`${config.baseUrl}/api/tasks/get-tasks`, {
+      .get('/api/tasks/get-tasks', {
         headers: {
           auth_token: state.token
         }
@@ -67,7 +66,7 @@ export default {
   deleteTask({ commit, state }, task) {
     return axios
       .post(
-        `${config.baseUrl}/api/tasks/delete`,
+        '/api/tasks/delete',
         { taskId: task._id },
         {
           headers: {
@@ -83,7 +82,7 @@ export default {
   isCompleteTask({ commit, state }, task) {
     return axios
       .patch(
-        `${config.baseUrl}/api/tasks/completed`,
+        '/api/tasks/completed',
         { taskId: task._id, isComplete: task.completed },
         {
           headers: {
@@ -98,7 +97,7 @@ export default {
 
   deleteUser({ state }) {
     return axios
-      .delete(`${config.baseUrl}/api/user/delete`, {
+      .delete('/api/user/delete', {
         headers: {
           auth_token: state.token
         }
