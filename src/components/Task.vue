@@ -14,11 +14,17 @@ export default {
   props: ['task'],
   methods: {
     deleteTask() {
-      this.$store.dispatch('deleteTask', this.task)
+      this.$store.commit('setHomeIsLoading', true)
+      this.$store.dispatch('deleteTask', this.task).then(() => {
+        this.$store.commit('setHomeIsLoading', false)
+      })
     },
     changeStatus() {
       this.task.completed = !this.task.completed
-      this.$store.dispatch('isCompleteTask', this.task)
+      this.$store.commit('setHomeIsLoading', true)
+      this.$store.dispatch('isCompleteTask', this.task).then(() => {
+        this.$store.commit('setHomeIsLoading', false)
+      })
     }
   }
 }

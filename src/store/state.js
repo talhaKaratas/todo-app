@@ -3,5 +3,6 @@ export default {
   activeUser: {},
   tasks: [],
   completedTasks: [],
-  error: null
+  error: null,
+  homeIsLoading: false
 }

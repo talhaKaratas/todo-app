@@ -3,14 +3,10 @@ import config from './config'
 import { router } from '../router/routes'
 export default {
   register({ dispatch, commit }, user) {
-    axios
+    return axios
       .post(`${config.baseUrl}/api/user/register`, user)
       .then(() => {
-        dispatch('login', { email: user.email, password: user.password }).then(
-          () => {
-            router.push('/')
-          }
-        )
+        dispatch('login', { email: user.email, password: user.password })
       })
       .catch((error) => {
         const err = error.response.data.message
@@ -24,6 +20,7 @@ export default {
       .then((res) => {
         localStorage.setItem('auth_token', res.data.token)
         commit('setToken', res.data)
+        router.push('/')
       })
       .catch((error) => {
         const err = error.response.data.message
@@ -56,7 +53,7 @@ export default {
   },
 
   fetchTasks({ commit, state }) {
-    axios
+    return axios
       .get(`${config.baseUrl}/api/tasks/get-tasks`, {
         headers: {
           auth_token: state.token
@@ -68,7 +65,7 @@ export default {
   },
 
   deleteTask({ commit, state }, task) {
-    axios
+    return axios
       .post(
         `${config.baseUrl}/api/tasks/delete`,
         { taskId: task._id },
@@ -84,7 +81,7 @@ export default {
   },
 
   isCompleteTask({ commit, state }, task) {
-    axios
+    return axios
       .patch(
         `${config.baseUrl}/api/tasks/completed`,
         { taskId: task._id, isComplete: task.completed },

@@ -1,5 +1,10 @@
 <template>
   <div class="register">
+    <Loading
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :is-full-page="true"
+    ></Loading>
     <div class="card">
       <div class="card__title">
         <h1>Kayıt Ol</h1>
@@ -49,9 +54,14 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Register',
+  components: {
+    Loading
+  },
   data() {
     return {
       user: {
@@ -59,12 +69,16 @@ export default {
         surname: '',
         email: '',
         password: ''
-      }
+      },
+      isLoading: false
     }
   },
   methods: {
     register() {
-      this.$store.dispatch('register', this.user)
+      this.isLoading = true
+      this.$store.dispatch('register', this.user).then(() => {
+        this.isLoading = false
+      })
     }
   },
   computed: {
