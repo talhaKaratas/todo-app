@@ -4,6 +4,8 @@
       :active.sync="getHomeIsLoading"
       :can-cancel="true"
       :is-full-page="true"
+      loader="dots"
+      color="blue"
     ></Loading>
     <div class="task__container">
       <div class="taskContainer__title">
@@ -15,7 +17,7 @@
         </div>
         <md-menu md-size="big" md-direction="bottom-end">
           <md-button class="md-icon-button" md-menu-trigger>
-            <md-icon>exit_to_app</md-icon>
+            <md-icon>settings</md-icon>
           </md-button>
 
           <md-menu-content>

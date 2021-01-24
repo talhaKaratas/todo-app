@@ -1,10 +1,22 @@
 <template>
   <div class="task__read">
-    <div class="taskRead__left">
-      <input type="checkbox" @change="changeStatus" :checked="task.completed" />
-      <p class="task__text">{{ task.task }}</p>
-    </div>
-    <small @click="deleteTask">sil</small>
+    <table>
+      <tr>
+        <td>
+          <input
+            type="checkbox"
+            @change="changeStatus"
+            :checked="task.completed"
+          />
+        </td>
+        <td class="column__middle">
+          <p class="task__text">{{ task.task }}</p>
+        </td>
+        <td>
+          <small @click="deleteTask">sil</small>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -37,19 +49,14 @@ export default {
   border-radius: 8px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 10px;
   margin: 20px 0;
-  height: 40px;
+  height: fit-content;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
 }
 
-.taskRead__left {
-  display: flex;
-  align-items: center;
-}
-
-.taskRead__left p {
-  font-size: 16px;
+.task__read p {
+  font-size: 14px;
   margin-left: 10px;
 }
 
@@ -60,5 +67,15 @@ export default {
 
 .task__read small:hover {
   color: red;
+}
+
+table {
+  table-layout: auto;
+  width: 100%;
+}
+
+.column__middle {
+  table-layout: auto;
+  width: 100%;
 }
 </style>

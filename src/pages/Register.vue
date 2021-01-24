@@ -4,6 +4,8 @@
       :active.sync="isLoading"
       :can-cancel="true"
       :is-full-page="true"
+      loader="dots"
+      color="blue"
     ></Loading>
     <div class="card">
       <div class="card__title">
