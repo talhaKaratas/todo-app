@@ -1,5 +1,10 @@
 <template>
   <div class="login">
+    <Loading
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :is-full-page="true"
+    ></Loading>
     <div class="card">
       <div class="card__title">
         <h1>Giriş Yap</h1>
@@ -33,22 +38,28 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Login',
+  components: {
+    Loading
+  },
   data() {
     return {
       user: {
         email: '',
         password: ''
       },
-      test: 'asd'
+      isLoading: false
     }
   },
   methods: {
     login() {
+      this.isLoading = true
       this.$store.dispatch('login', this.user).then(() => {
-        this.$router.push('/')
+        this.isLoading = false
       })
     }
   },

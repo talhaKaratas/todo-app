@@ -13,5 +13,9 @@ export default {
 
   getError(state) {
     return state.error
+  },
+
+  getHomeIsLoading(state) {
+    return state.homeIsLoading
   }
 }

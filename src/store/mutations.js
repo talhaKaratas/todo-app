@@ -67,5 +67,9 @@ export default {
 
   setError(state, payload) {
     state.error = payload
+  },
+
+  setHomeIsLoading(state, payload) {
+    state.homeIsLoading = payload
   }
 }

@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <Loading
+      :active.sync="getHomeIsLoading"
+      :can-cancel="true"
+      :is-full-page="true"
+    ></Loading>
     <div class="task__container">
       <div class="taskContainer__title">
         <div class="user__info">
@@ -46,11 +51,14 @@
 </template>
 
 <script>
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 import Task from '../components/Task'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    Task
+    Task,
+    Loading
   },
   data() {
     return {
@@ -63,8 +71,10 @@ export default {
       location.reload()
     },
     addTask() {
+      this.$store.commit('setHomeIsLoading', true)
       this.$store.dispatch('addTask', { task: this.task }).then(() => {
         this.task = ''
+        this.$store.commit('setHomeIsLoading', false)
       })
     },
 
@@ -78,11 +88,19 @@ export default {
     }
   },
   created() {
+    this.$store.commit('setHomeIsLoading', true)
     this.$store.dispatch('fetchUserInfo')
-    this.$store.dispatch('fetchTasks')
+    this.$store.dispatch('fetchTasks').then(() => {
+      this.$store.commit('setHomeIsLoading', false)
+    })
   },
   computed: {
-    ...mapGetters(['getActiveUsers', 'getTasks', 'getCompletedTasks'])
+    ...mapGetters([
+      'getActiveUsers',
+      'getTasks',
+      'getCompletedTasks',
+      'getHomeIsLoading'
+    ])
   },
 
   filters: {
