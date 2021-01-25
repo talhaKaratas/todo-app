@@ -28,7 +28,7 @@ export default {
   },
 
   fetchUserInfo({ commit, state }) {
-    axios
+    return axios
       .get('/api/user/info', {
         headers: {
           auth_token: state.token
@@ -105,6 +105,34 @@ export default {
       .then(() => {
         localStorage.removeItem('auth_token')
         state.token = null
+      })
+  },
+
+  changeUserInfo({ state, commit }, user) {
+    return axios
+      .patch('/api/user/change-name-or-surname', user, {
+        headers: {
+          auth_token: state.token
+        }
+      })
+      .then()
+      .catch((err) => {
+        const error = err.response.data.message
+        commit('setError', error)
+      })
+  },
+
+  changePassword({ state, commit }, passwords) {
+    return axios
+      .patch('/api/user/change-password', passwords, {
+        headers: {
+          auth_token: state.token
+        }
+      })
+      .then()
+      .catch((err) => {
+        const error = err.response.data.message
+        commit('setError', error)
       })
   }
 }

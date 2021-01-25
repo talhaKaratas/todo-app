@@ -21,6 +21,21 @@ export const router = new VueRouter({
       }
     },
     {
+      path: '/account',
+      name: 'Account',
+      component: () => import('../pages/Account'),
+      beforeEnter(to, from, next) {
+        if (store.state.token) {
+          state.error = null
+          state.tasks = []
+          state.completedTasks = []
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
       path: '/register',
       name: 'Register',
       component: () => import('../pages/Register'),

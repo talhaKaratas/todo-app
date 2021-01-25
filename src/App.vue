@@ -129,4 +129,53 @@ export default {
     margin-bottom: 10px;
   }
 }
+
+/* HOME AND ACCOUNT CLASSES */
+.home,
+.account {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff9ea;
+}
+
+.task__container,
+.account__container {
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.6);
+  overflow-y: scroll;
+}
+
+.task__container::-webkit-scrollbar,
+.account__container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.task__container::-webkit-scrollbar-thumb,
+.account__container::-webkit-scrollbar-thumb {
+  background: #caccd1;
+  border-radius: 0 4px 4px 0;
+}
+
+@media (max-width: 850px) {
+  .task__container,
+  .account__container {
+    width: 90%;
+    height: 90%;
+  }
+}
+
+@media (max-width: 550px) {
+  .task__container,
+  .account__container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
 </style>

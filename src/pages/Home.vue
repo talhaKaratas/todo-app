@@ -17,7 +17,7 @@
         </div>
         <md-menu md-size="big" md-direction="bottom-end">
           <md-button class="md-icon-button" md-menu-trigger>
-            <md-icon>settings</md-icon>
+            <md-icon>more_vert</md-icon>
           </md-button>
 
           <md-menu-content>
@@ -26,9 +26,9 @@
               <md-icon>exit_to_app</md-icon>
             </md-menu-item>
 
-            <md-menu-item @click="deleteUser">
-              <span>Hesabı Sil</span>
-              <md-icon>delete</md-icon>
+            <md-menu-item @click="$router.push('/account')">
+              <span>Ayarlar</span>
+              <md-icon>settings</md-icon>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -78,15 +78,6 @@ export default {
         this.task = ''
         this.$store.commit('setHomeIsLoading', false)
       })
-    },
-
-    deleteUser() {
-      if (confirm('Hesabı kalıcı olarak silmek istediğinize emin misiniz?')) {
-        this.$store.dispatch('deleteUser').then(() => {
-          // location.reload()
-          this.$router.push('/register')
-        })
-      }
     }
   },
   created() {
@@ -114,37 +105,6 @@ export default {
 </script>
 
 <style>
-.home {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff9ea;
-}
-
-.task__container {
-  width: 80%;
-  height: 80%;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.6);
-  overflow-y: scroll;
-}
-
-.task__container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.task__container::-webkit-scrollbar-track {
-  background: #f3f4f7;
-}
-
-.task__container::-webkit-scrollbar-thumb {
-  background: #caccd1;
-  border-radius: 0 4px 4px 0;
-}
-
 .taskContainer__title {
   display: flex;
   align-items: center;
@@ -200,20 +160,5 @@ export default {
 
 .mt-0 {
   margin: 0 !important;
-}
-
-@media (max-width: 850px) {
-  .task__container {
-    width: 90%;
-    height: 90%;
-  }
-}
-
-@media (max-width: 550px) {
-  .task__container {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-  }
 }
 </style>
