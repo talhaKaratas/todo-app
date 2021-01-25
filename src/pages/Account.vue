@@ -195,14 +195,14 @@ export default {
 
 .accountContainer__body {
   padding: 0 40px;
-  height: 85%;
+  height: 100%;
 }
 
 .accountContainer__bodyTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60%;
+  height: 70%;
 }
 
 .top__left,
@@ -227,9 +227,9 @@ export default {
   cursor: pointer;
   transition: 0.2s ease;
   display: block;
-  position: sticky;
-  top: 100%;
-  left: 100%;
+  position: relative;
+  top: 80%;
+  right: 0;
 }
 
 .delete__account span {
